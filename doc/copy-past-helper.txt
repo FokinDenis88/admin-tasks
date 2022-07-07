@@ -1,0 +1,67 @@
+#ifndef _HPP_
+#define _HPP_
+
+namespace mlp {
+} // !mlp
+
+#endif // !_HPP_
+
+<PROJECT>_<PATH>_<FILE>_H_
+
+-fopenmp
+-fopenmp=libomp /usr/lib/gcc/x86_64-linux-gnu/10/include
+
+#define DEBUG
+// Отключение всех assert проверок. Включить при релизе программы
+#ifndef DEBUG
+#define NDEBUG
+#endif // !DEBUG
+
+#pragma omp parallel for schedule(static)
+
+$(ProjectDir)\bin\$(Configuration)\$(Platform)
+
+Related header
+C system headers
+C++ standard library headers
+Other libraries' headers
+Project's headers.
+
+
+A class definition should usually start with a public: section, followed by protected:, then private:. Omit sections that would be empty.
+Within each section, prefer grouping similar kinds of declarations together, and prefer the following order:
+types (including typedef, using, enum, and nested structs and classes),
+constants, factory functions, constructors and assignment operators, destructor, all other methods, data members.
+
+
+// Regular Expression for finding code lines count in solution or project
+^(?!(\s*\*))(?!(\s*\-\-\>))(?!(\s*\<\!\-\-))(?!(\s*\n))(?!(\s*\*\/))(?!(\s*\/\*))(?!(\s*\/\/\/))(?!(\s*\/\/))(?!(\s*\}))(?!(\s*\{))(?!(\s(using))).*$
+
+//============================================================================
+// Name        : string-project.cpp
+// Author      :
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+
+// EXCEPTION MACROS
+#if _HAS_EXCEPTIONS
+#define _TRY_BEGIN try {
+#define _CATCH(x) \
+    }             \
+    catch (x) {
+#define _CATCH_ALL \
+    }              \
+    catch (...) {
+#define _CATCH_END }
+
+#define _RERAISE  throw
+#define _THROW(x) throw x
+
+Output Directory
+$(ProjectDir)\bin\$(Platform)\$(Configuration)\
+
+Intermediate Directory
+$(ProjectDir)\bin\obj\$(Platform)\$(Configuration)\

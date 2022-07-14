@@ -11,10 +11,12 @@ set(SOURCES
     src/copy-files-to-multiple-dirs.cpp
     src/unpack-archives-in-subfolders.cpp
     src/general.cpp
+    src/exception-handling-console.cpp
     )
 
 set(INCLUDES
     include
+    external/regex-boost/include
     )
 
 set(HEADER_FILES_FILTER
@@ -22,11 +24,12 @@ set(HEADER_FILES_FILTER
     include/copy-files-to-multiple-dirs.hpp
     include/unpack-archives-in-subfolders.hpp
     include/general.hpp
+    include/exception-handling-console.hpp
     )
 set(DOC_FILTER
     doc/to-do.txt
     doc/copy-past-helper.txt
-    admin-tasks.ini
+    admin-tasks-copy.ini
     #doc/!wiki.odt
     )
 

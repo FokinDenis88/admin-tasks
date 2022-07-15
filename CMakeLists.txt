@@ -12,11 +12,23 @@ set(SOURCES
     src/unpack-archives-in-subfolders.cpp
     src/general.cpp
     src/exception-handling-console.cpp
+    src/logs-support.cpp
     )
 
 set(INCLUDES
     include
     external/regex-boost/include
+    external/file-stream-wrapper/include
+    #external/boost-filesystem/include
+    "C:/DevApps/!Libraries/!boost/boost-1-80/libs/core/include"
+    "C:/DevApps/!Libraries/!boost/boost-1-80/libs/filesystem/include"
+    )
+
+set(LIBRARIES
+    "C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/filesystem/build/msvc-14.3/debug/link-static/threading-multi/libboost_filesystem-vc143-mt-gd-x64-1_80.lib"
+    "C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/filesystem/build/msvc-14.3/release/link-static/threading-multi/libboost_filesystem-vc143-mt-x64-1_80.lib"
+    "C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/regex/build/msvc-14.3/debug/link-static/threading-multi/libboost_regex-vc143-mt-gd-x64-1_80.lib"
+    "C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/regex/build/msvc-14.3/release/link-static/threading-multi/libboost_regex-vc143-mt-x64-1_80.lib"
     )
 
 set(HEADER_FILES_FILTER
@@ -25,11 +37,12 @@ set(HEADER_FILES_FILTER
     include/unpack-archives-in-subfolders.hpp
     include/general.hpp
     include/exception-handling-console.hpp
+    include/logs-support.hpp
     )
 set(DOC_FILTER
     doc/to-do.txt
     doc/copy-past-helper.txt
-    admin-tasks-copy.ini
+    admin-tasks.ini
     #doc/!wiki.odt
     )
 
@@ -38,6 +51,9 @@ add_executable(admin-tasks ${SOURCES}
                 ${HEADER_FILES_FILTER} ${DOC_FILTER})
 # Include Directories
 target_include_directories(admin-tasks PUBLIC ${INCLUDES})
+
+# Link Libraries
+target_link_libraries(admin-tasks ${LIBRARIES})
 
 # Filters for Grouping files in project
 source_group("Header Files" FILES ${HEADER_FILES_FILTER})

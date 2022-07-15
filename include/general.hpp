@@ -24,6 +24,8 @@ namespace admin_tasks {
     //inline const std::filesystem::path ini_path{ std::filesystem::current_path() /= kIniFileName };
     //std::filesystem::path current_working_directory{ std::filesystem::current_path() };
 
+    inline const std::wstring kLogDirW{ L"C:\\Development\\Projects\\!Programming\\!it-projects\\!best-projects\\admin-tasks\\log" };
+    inline const std::string kLogDirA{ "C:\\Development\\Projects\\!Programming\\!it-projects\\!best-projects\\admin-tasks\\log" };
 
 
     inline bool GetBoolFromStr(const std::wstring& str) {

@@ -2,7 +2,7 @@
 #define _HPP_
 
 namespace mlp {
-} // !mlp
+} // !namespace mlp
 
 #endif // !_HPP_
 

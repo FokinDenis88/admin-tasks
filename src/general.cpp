@@ -6,7 +6,7 @@
 #include <Windows.h>    // for GetPrivateProfileStringW
 
 namespace admin_tasks {
-    std::wstring ReadWStringFromIni(const std::wstring& section, const std::wstring& key_name, const std::filesystem::path& ini_path) {
+    std::wstring ReadWStringFromIni(const std::wstring& section, const std::wstring& key_name, const boost::filesystem::path& ini_path) {
         std::wstring ini_buffer{};
         ini_buffer.resize(kPathCharCount);
         size_t readed_chars = GetPrivateProfileStringW(section.c_str(), key_name.c_str(), nullptr, &ini_buffer[0], kPathCharCount, ini_path.c_str());
@@ -32,9 +32,9 @@ namespace admin_tasks {
     // "(?<value>[^\|]+)(?=\|)|(?<=\|)\k<value>(?=\z)"
 
     /// Returns List of paths connecting directory and list of file names
-    PathsList GetSourceFilesPaths(const std::filesystem::path& dir, const std::list<std::wstring>& names) {
+    PathsList GetSourceFilesPaths(const boost::filesystem::path& dir, const std::list<std::wstring>& names) {
         PathsList paths{};
-        std::filesystem::path buffer_path{};
+        boost::filesystem::path buffer_path{};
         for (const std::wstring& file_name : names) {
             buffer_path = dir;
             paths.emplace_back(std::move(buffer_path /= file_name));
@@ -42,17 +42,17 @@ namespace admin_tasks {
         return paths;
     }
 
-    bool CopyFileToDir(const std::filesystem::path& source_file_path, const std::filesystem::path& target_dir,
-        const std::filesystem::copy_options& copy_options_p) {
-        std::filesystem::path target_path = target_dir;
+    bool CopyFileToDir(const boost::filesystem::path& source_file_path, const boost::filesystem::path& target_dir,
+        const boost::filesystem::copy_options& copy_options_p) {
+        boost::filesystem::path target_path = target_dir;
         target_path /= source_file_path.filename();
-        return std::filesystem::copy_file(source_file_path, target_path, copy_options_p);
+        return boost::filesystem::copy_file(source_file_path, target_path, copy_options_p);
     }
 
-    std::list<bool> CopyFilesToDir(const std::list<std::filesystem::path>& source_files_paths, const std::filesystem::path& target_dir,
-        const std::filesystem::copy_options& copy_options_p) {
+    std::list<bool> CopyFilesToDir(const std::list<boost::filesystem::path>& source_files_paths, const boost::filesystem::path& target_dir,
+        const boost::filesystem::copy_options& copy_options_p) {
         std::list<bool> copy_results{};
-        for (const std::filesystem::path& source_file_path : source_files_paths) {
+        for (const boost::filesystem::path& source_file_path : source_files_paths) {
             copy_results.push_back(CopyFileToDir(source_file_path, target_dir, copy_options_p));
         }
         return copy_results;
@@ -94,8 +94,8 @@ namespace admin_tasks {
     //_wsystem(console_command);
 
     /// Support Function for Creating List of Paths
-    std::list<std::filesystem::path> PathListFromWStringList(const std::list<std::wstring>& wstr_path_list) {
-        std::list<std::filesystem::path> path_list{};
+    std::list<boost::filesystem::path> PathListFromWStringList(const std::list<std::wstring>& wstr_path_list) {
+        std::list<boost::filesystem::path> path_list{};
         for (const std::wstring& path_wstr : wstr_path_list) {
             path_list.emplace_back(path_wstr);
         }

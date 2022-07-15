@@ -62,9 +62,9 @@ namespace errors {
 
     inline constexpr int kFilesystemErrorCode       { -13 };
     inline const std::string kFilesystemErrorName   { "Filesystem" };
-    inline const std::string kFilesystemErrorType   { "std::filesystem::filesystem_error" };
+    inline const std::string kFilesystemErrorType   { "boost::filesystem::filesystem_error" };
 
-    inline int FilesystemErrorHandle(const std::filesystem::filesystem_error& error) {
+    inline int FilesystemErrorHandle(const boost::filesystem::filesystem_error& error) {
         std::cout << kTryCatchMessage;
         std::cout << kErrorTypeMessage << kFilesystemErrorType << '\n';
         std::cerr << "code " << error.code() << '\n';

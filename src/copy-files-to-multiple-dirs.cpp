@@ -8,6 +8,8 @@
 #include <exception>
 #include <stdexcept>
 
+#include "boost/filesystem.hpp"
+
 //#include "boost"
 
 #include "general.hpp"
@@ -33,8 +35,8 @@ namespace admin_tasks {
                 std::cout << kCopyModuleName + msg_process_start;
 
                 const std::list<std::wstring> target_directories_wstr{ GetIniValuesList(ReadWStringFromIni(kCopyToMultipleDirsSection, kTargetDirectoriesIniKey, ini_path)) };
-                const std::list<std::filesystem::path> target_directories{ PathListFromWStringList(target_directories_wstr) };
-                const std::filesystem::path source_files_directory  { ReadWStringFromIni(kCopyToMultipleDirsSection, kSourceFilesDirectoryIniKey, ini_path) };
+                const std::list<boost::filesystem::path> target_directories{ PathListFromWStringList(target_directories_wstr) };
+                const boost::filesystem::path source_files_directory  { ReadWStringFromIni(kCopyToMultipleDirsSection, kSourceFilesDirectoryIniKey, ini_path) };
                 const std::wstring source_files_names_list_ini      { ReadWStringFromIni(kCopyToMultipleDirsSection, kSourceFilesNamesListIniKey, ini_path) };
                 const bool is_copy_subfolders                          { ReadBoolFromIni(kCopyToMultipleDirsSection, kSubfoldersIniKey, ini_path) };
 
@@ -43,17 +45,17 @@ namespace admin_tasks {
 
                 std::list<bool> copy_results{};
                 if (is_copy_subfolders) { // Add to all subfolders copied files
-                    for (const std::filesystem::path& target_directory : target_directories) { // Calc all target directories
-                        for (auto const& dir_entry : std::filesystem::directory_iterator{ target_directory }) {
-                            if (dir_entry.is_directory()) {
-                                CopyFilesToDir(source_files_paths, dir_entry, std::filesystem::copy_options::skip_existing);
+                    for (const boost::filesystem::path& target_directory : target_directories) { // Calc all target directories
+                        for (auto const& dir_entry : boost::filesystem::directory_iterator{ target_directory }) {
+                            if (boost::filesystem::is_directory(dir_entry)) {
+                                CopyFilesToDir(source_files_paths, dir_entry, boost::filesystem::copy_options::skip_existing);
                                 std::cout << "Coping to folder " << dir_entry << '\n';
                             }
                         }
                     }
                 } else { // Add copied files only to target folder
-                    for (const std::filesystem::path& target_directory : target_directories) {
-                        CopyFilesToDir(source_files_paths, target_directory, std::filesystem::copy_options::skip_existing);
+                    for (const boost::filesystem::path& target_directory : target_directories) {
+                        CopyFilesToDir(source_files_paths, target_directory, boost::filesystem::copy_options::skip_existing);
                         std::cout << "Coping to folder " << target_directory << '\n';
                     }
                 }
@@ -65,7 +67,7 @@ namespace admin_tasks {
             std::cout << "\n";
             return 0;
         }
-        catch (const std::filesystem::filesystem_error& error)  { return errors::FilesystemErrorHandle(error); }
+        catch (const boost::filesystem::filesystem_error& error)  { return errors::FilesystemErrorHandle(error); }
         catch (const std::runtime_error& error)                 { return errors::RuntimeErrorHandle(error); }
         catch (...)                                             { return errors::FatalErrorHandle(); }
     }

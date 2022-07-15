@@ -6,8 +6,10 @@
 #include <list>
 #include <set>  // for zip set
 
+#include "boost/filesystem.hpp"
+
 namespace admin_tasks {
-    using PathsList = std::list<std::filesystem::path>;
+    using PathsList = std::list<boost::filesystem::path>;
 
     inline const std::wstring kIniFileName          { L"admin-tasks.ini" };
     inline const std::wstring kIsModuleActiveIniKey { L"is_module_active" };
@@ -20,9 +22,9 @@ namespace admin_tasks {
     inline const std::string msg_module_disabled    { " module is disabled" };
 
     inline const std::wstring kSourceCodeDir{ L"C:\\Development\\Projects\\!Programming\\!it-projects\\!best-projects\\admin-tasks\\" + kIniFileName };
-    inline const std::filesystem::path ini_path{ kSourceCodeDir };
-    //inline const std::filesystem::path ini_path{ std::filesystem::current_path() /= kIniFileName };
-    //std::filesystem::path current_working_directory{ std::filesystem::current_path() };
+    inline const boost::filesystem::path ini_path{ kSourceCodeDir };
+    //inline const boost::filesystem::path ini_path{ boost::filesystem::current_path() /= kIniFileName };
+    //boost::filesystem::path current_working_directory{ boost::filesystem::current_path() };
 
     inline const std::wstring kLogDirW{ L"C:\\Development\\Projects\\!Programming\\!it-projects\\!best-projects\\admin-tasks\\log" };
     inline const std::string kLogDirA{ "C:\\Development\\Projects\\!Programming\\!it-projects\\!best-projects\\admin-tasks\\log" };
@@ -37,18 +39,18 @@ namespace admin_tasks {
         return false;   // error in parsing
     }
 
-    std::wstring ReadWStringFromIni(const std::wstring& section, const std::wstring& key_name, const std::filesystem::path& ini_path);
-    inline bool ReadBoolFromIni(const std::wstring& section, const std::wstring& key_name, const std::filesystem::path& ini_path) {
+    std::wstring ReadWStringFromIni(const std::wstring& section, const std::wstring& key_name, const boost::filesystem::path& ini_path);
+    inline bool ReadBoolFromIni(const std::wstring& section, const std::wstring& key_name, const boost::filesystem::path& ini_path) {
         return GetBoolFromStr(ReadWStringFromIni(section, key_name, ini_path));
     }
 
     std::list<std::wstring> GetIniValuesList(const std::wstring& ini_value);
-    PathsList GetSourceFilesPaths(const std::filesystem::path& dir, const std::list<std::wstring>& names);
+    PathsList GetSourceFilesPaths(const boost::filesystem::path& dir, const std::list<std::wstring>& names);
 
-    bool CopyFileToDir(const std::filesystem::path& source_file_path, const std::filesystem::path& target_dir,
-                       const std::filesystem::copy_options& copy_options_p = std::filesystem::copy_options::none);
-    std::list<bool> CopyFilesToDir(const std::list<std::filesystem::path>& source_files_paths, const std::filesystem::path& target_dir,
-                                   const std::filesystem::copy_options& copy_options_p = std::filesystem::copy_options::none);
+    bool CopyFileToDir(const boost::filesystem::path& source_file_path, const boost::filesystem::path& target_dir,
+                       const boost::filesystem::copy_options& copy_options_p = boost::filesystem::copy_options::none);
+    std::list<bool> CopyFilesToDir(const std::list<boost::filesystem::path>& source_files_paths, const boost::filesystem::path& target_dir,
+                                   const boost::filesystem::copy_options& copy_options_p = boost::filesystem::copy_options::none);
 
     const std::set<std::wstring> kArchiveExtensions{ L".7z", L".rar", L".zip", L".tar.bz2", L".tar.gz", L".zipx" };
 
@@ -70,7 +72,7 @@ namespace admin_tasks {
                                     const std::wstring& full_path_archive_name,
                                     const std::wstring& full_path_file_name);
 
-    std::list<std::filesystem::path> PathListFromWStringList(const std::list<std::wstring>& wstr_path_list);
+    std::list<boost::filesystem::path> PathListFromWStringList(const std::list<std::wstring>& wstr_path_list);
 
 } // !namespace admin_tasks
 

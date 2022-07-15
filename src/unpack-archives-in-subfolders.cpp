@@ -65,14 +65,14 @@ namespace admin_tasks {
 
                 for (size_t i = 0; i < repeat_count; ++i) {
                     for (const boost::filesystem::path& target_directory : target_directories) { // Calc all target directories
-                        for (auto const& dir_entry : std::filesystem::recursive_directory_iterator{ target_directory }) {
+                        for (auto const& dir_entry : boost::filesystem::recursive_directory_iterator{ target_directory }) {
                             const boost::filesystem::path entry_path{ dir_entry.path() };
-                            if (dir_entry.is_regular_file() && kArchiveExtensions.contains(entry_path.extension())) {
+                            if (boost::filesystem::is_regular_file(dir_entry) && kArchiveExtensions.contains(entry_path.extension().wstring())) {
                                 if (i == repeat_count - 1) { all_archive_file_paths.emplace_back(entry_path); }
                                 boost::filesystem::path target_dir_path{ entry_path.parent_path() };
                                 target_dir_path /= entry_path.stem();
                                 if (!boost::filesystem::exists(target_dir_path)) { // Create directory for zip files contents
-                                    std::filesystem::create_directory(target_dir_path);
+                                    boost::filesystem::create_directory(target_dir_path);
                                 }
                                 //std::wcout << "Extracting file: " << dir_entry << '\n';
 
@@ -84,7 +84,7 @@ namespace admin_tasks {
                                 // Disabled for prevention of data losses
                                 if (to_delete_archive) {
                                     std::cout << "Deleting archive file: " << dir_entry << '\n';
-                                    std::filesystem::remove(dir_entry);
+                                    boost::filesystem::remove(dir_entry);
                                 }
 #endif // DATA_LOSSY
                             }
@@ -99,7 +99,7 @@ namespace admin_tasks {
             std::cout << "\n";
             return 0;
         }
-        catch (const std::filesystem::filesystem_error& error)  { return errors::FilesystemErrorHandle(error); }
+        catch (const boost::filesystem::filesystem_error& error)  { return errors::FilesystemErrorHandle(error); }
         catch (const std::runtime_error& error)                 { return errors::RuntimeErrorHandle(error); }
         catch (...)                                             { return errors::FatalErrorHandle(); }
     }

@@ -4,10 +4,12 @@
 
 #include "copy-files-to-multiple-dirs.hpp"
 #include "unpack-archives-in-subfolders.hpp"
+#include "tag-management.hpp"
 
 int main() {
     admin_tasks::CopyFilesToMultipleDirs();
     admin_tasks::UnpackArchivesInSubfolders();
+    admin_tasks::ManageTagsInSubfolders();
 
     std::cout << "\n\n";
     std::cout << "\nPush any key\n";

@@ -21,13 +21,13 @@ namespace admin_tasks {
     inline const std::string msg_process_end        { " process has been ended\n" };
     inline const std::string msg_module_disabled    { " module is disabled" };
 
-    inline const std::wstring kSourceCodeDir{ L"C:\\Development\\Projects\\!Programming\\!it-projects\\!best-projects\\admin-tasks\\" + kIniFileName };
+    inline const std::wstring kSourceCodeDir{ L"C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\" + kIniFileName };
     inline const boost::filesystem::path ini_path{ kSourceCodeDir };
     //inline const boost::filesystem::path ini_path{ boost::filesystem::current_path() /= kIniFileName };
     //boost::filesystem::path current_working_directory{ boost::filesystem::current_path() };
 
-    inline const std::wstring kLogDirW{ L"C:\\Development\\Projects\\!Programming\\!it-projects\\!best-projects\\admin-tasks\\log" };
-    inline const std::string kLogDirA{ "C:\\Development\\Projects\\!Programming\\!it-projects\\!best-projects\\admin-tasks\\log" };
+    inline const std::wstring kLogDirW{ L"C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\log" };
+    inline const std::string kLogDirA{ "C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\log" };
 
 
     inline bool GetBoolFromStr(const std::wstring& str) {

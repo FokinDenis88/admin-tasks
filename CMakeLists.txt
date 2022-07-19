@@ -13,22 +13,21 @@ set(SOURCES
     src/general.cpp
     src/exception-handling-console.cpp
     src/logs-support.cpp
+    src/tag-management.cpp
     )
 
 set(INCLUDES
     include
     external/regex-boost/include
     external/file-stream-wrapper/include
-    #external/boost-filesystem/include
     "C:/DevApps/!Libraries/!boost/boost-1-80"
-    #"C:/DevApps/!Libraries/!boost/boost-1-80/libs/filesystem/include"
     )
 
 set(LIBRARIES
     "C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/filesystem/build/msvc-14.3/debug/link-static/threading-multi/libboost_filesystem-vc143-mt-gd-x64-1_80.lib"
     #"C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/filesystem/build/msvc-14.3/release/link-static/threading-multi/libboost_filesystem-vc143-mt-x64-1_80.lib"
     "C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/regex/build/msvc-14.3/debug/link-static/threading-multi/libboost_regex-vc143-mt-gd-x64-1_80.lib"
-    "C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/regex/build/msvc-14.3/release/link-static/threading-multi/libboost_regex-vc143-mt-x64-1_80.lib"
+    #"C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/regex/build/msvc-14.3/release/link-static/threading-multi/libboost_regex-vc143-mt-x64-1_80.lib"
     )
 
 set(HEADER_FILES_FILTER
@@ -38,6 +37,7 @@ set(HEADER_FILES_FILTER
     include/general.hpp
     include/exception-handling-console.hpp
     include/logs-support.hpp
+    include/tag-management.hpp
     )
 set(DOC_FILTER
     doc/to-do.txt

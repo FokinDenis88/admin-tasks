@@ -23,7 +23,7 @@
 namespace admin_tasks {
     /// Maximum count of archives extracted simultaneously
     constexpr size_t extraction_max{ 100 };
-    const std::string kArchiveSubfoldersModuleName{ "Unpack all archives in subfolders" };
+    const std::string kUnpackArchivesModuleName{ "Unpack all archives in subfolders" };
 
     const std::wstring kUnpackArchivesSection   { L"UnpackArchivesSubfolders" };
     const std::string kUnpackArchivesSectionA   { "UnpackArchivesSubfolders" };
@@ -36,7 +36,7 @@ namespace admin_tasks {
                          const std::list<boost::filesystem::path>& all_archive_file_paths) {
         std::wcout << L"Writing logs.\n";
         std::string log_name{ logs::DateTimeFormat() + "  " + kUnpackArchivesSectionA + logs::kLogExtension };
-        log_name = file::CorrectNameForOS(log_name, "-");
+        log_name = file::CorrectFileNameForOS(log_name, std::string("_"), std::string(""));
         std::string log_path{ kLogDirA + '\\' + log_name };
         for (const boost::filesystem::path& target_directory : target_directories) {
             file::WriteTextFile(log_path, L"Target Directory: " + target_directory.wstring() + L'\n');
@@ -47,13 +47,14 @@ namespace admin_tasks {
             file::WriteTextFile(log_path, path.wstring() + L"\n");
         }
         file::WriteTextFile(log_path, std::wstring(L"\n\n"));
+        // TODO: Can't write paths in russian language
     }
 
     int UnpackArchivesInSubfolders() {
         try {
             const bool is_module_active_ini{ ReadBoolFromIni(kUnpackArchivesSection, kIsModuleActiveIniKey, ini_path) };
             if (is_module_active_ini) {
-                std::cout << kArchiveSubfoldersModuleName + msg_process_start;
+                std::cout << kUnpackArchivesModuleName + msg_process_start;
 
                 const boost::filesystem::path zip_app_path{ ReadWStringFromIni(kUnpackArchivesSection, kZipAppIniKey, ini_path) };
                 const std::list<std::wstring> target_directories_wstr{ GetIniValuesList(ReadWStringFromIni(kUnpackArchivesSection, kTargetDirectoriesIniKey, ini_path)) };
@@ -91,7 +92,7 @@ namespace admin_tasks {
                         }
                     } // !Calc all target directories
                 }
-                std::cout << kArchiveSubfoldersModuleName + msg_process_end << "\n\n";
+                std::cout << kUnpackArchivesModuleName + msg_process_end << "\n\n";
                 std::wcout << L"Files, that have been extracted:\n";
 
                 WriteUnpackLogs(target_directories, all_archive_file_paths);

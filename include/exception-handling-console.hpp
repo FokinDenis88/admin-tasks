@@ -3,6 +3,12 @@
 
 #include <exception>
 #include <stdexcept>
+#include <iostream>
+
+#ifdef FILE_SYSTEM_EXCEPTION_HANDLING
+#include <filesystem>
+#include <boost/filesystem.hpp>
+#endif // FILE_SYSTEM_EXCEPTION_HANDLING
 
 namespace errors {
     inline constexpr int kLogicErrorCode            { -1 };
@@ -31,6 +37,7 @@ namespace errors {
 
     inline const std::string kTryCatchMessage{ "\n\nTry {} Catch {} block.\n" };
     inline const std::string kErrorTypeMessage{ "C++ Error Type: " };
+    inline const std::string kErrorWhatMesssage{ " error: " };
 
     inline const std::string kLogicErrorType            { "std::logic_error" };
     inline const std::string kRuntimeErrorType          { "std::runtime_error" };
@@ -56,10 +63,16 @@ namespace errors {
     int UnderflowErrorHandle(const std::bad_alloc& error);
     int FatalErrorHandle();
 
+    template<typename ErrorType> requires std::derived_from<ErrorType, std::exception>
+    inline void StandardErrorHandle(const ErrorType& error, const std::string& error_name,
+        const std::string& error_type) {
+        std::cout << kTryCatchMessage;
+        std::cout << kErrorTypeMessage << error_type << '\n';
+        std::cerr << error_name + kErrorWhatMesssage << error.what();
+    }
+
 
 #ifdef FILE_SYSTEM_EXCEPTION_HANDLING
-#include <filesystem>
-
     inline constexpr int kFilesystemErrorCode       { -13 };
     inline const std::string kFilesystemErrorName   { "Filesystem" };
     inline const std::string kFilesystemErrorType   { "boost::filesystem::filesystem_error" };

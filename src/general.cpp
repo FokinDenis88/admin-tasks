@@ -43,19 +43,37 @@ namespace admin_tasks {
     }
 
     bool CopyFileToDir(const boost::filesystem::path& source_file_path, const boost::filesystem::path& target_dir,
-        const boost::filesystem::copy_options& copy_options_p) {
+                        const boost::filesystem::copy_options& copy_options_p) {
         boost::filesystem::path target_path = target_dir;
         target_path /= source_file_path.filename();
         return boost::filesystem::copy_file(source_file_path, target_path, copy_options_p);
     }
 
     std::list<bool> CopyFilesToDir(const std::list<boost::filesystem::path>& source_files_paths, const boost::filesystem::path& target_dir,
-        const boost::filesystem::copy_options& copy_options_p) {
+                                    const boost::filesystem::copy_options& copy_options_p) {
         std::list<bool> copy_results{};
         for (const boost::filesystem::path& source_file_path : source_files_paths) {
             copy_results.push_back(CopyFileToDir(source_file_path, target_dir, copy_options_p));
         }
         return copy_results;
+    }
+
+    void DeleteFilesFromDir(const std::list<std::wstring>& file_names, const boost::filesystem::path& target_dir) {
+        std::list<boost::filesystem::path> target_paths{};
+        for (boost::filesystem::path target_path{}; const auto& file_name : file_names) {
+            target_path = target_dir;
+            target_path /= file_name;
+            target_paths.emplace_back(target_path);
+        }
+        for (const auto& target_path : target_paths) {
+            boost::filesystem::remove_all(target_path);
+        }
+    }
+
+    void DeleteFilesFromDirs(const std::list<std::wstring>& file_names, const std::list<boost::filesystem::path>& target_dirs) {
+        for (const auto& dir : target_dirs) {
+            DeleteFilesFromDir(file_names, dir);
+        }
     }
 
 
@@ -76,7 +94,8 @@ namespace admin_tasks {
         PROCESS_INFORMATION process_info{};
         ZeroMemory(&process_info, sizeof(process_info));
 
-        CreateProcessW(nullptr, &console_command[0], nullptr, nullptr, FALSE, NORMAL_PRIORITY_CLASS, nullptr, nullptr, &startup_info, &process_info);
+        CreateProcessW(nullptr, &console_command[0], nullptr, nullptr, FALSE, NORMAL_PRIORITY_CLASS, nullptr, nullptr,
+                       &startup_info, &process_info);
         if (wait_flag) { WaitForSingleObject(process_info.hProcess, INFINITE); }
     }
 

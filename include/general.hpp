@@ -21,13 +21,13 @@ namespace admin_tasks {
     inline const std::string msg_process_end        { " process has been ended\n" };
     inline const std::string msg_module_disabled    { " module is disabled" };
 
-    inline const std::wstring kSourceCodeDir{ L"C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\" + kIniFileName };
+    inline const std::wstring kSourceCodeDir{ L"C:\\Development\\Projects\\IT\\Programming\\!git-web\\open-source\\admin-tasks\\" + kIniFileName };
     inline const boost::filesystem::path ini_path{ kSourceCodeDir };
     //inline const boost::filesystem::path ini_path{ boost::filesystem::current_path() /= kIniFileName };
     //boost::filesystem::path current_working_directory{ boost::filesystem::current_path() };
 
-    inline const std::wstring kLogDirW{ L"C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\log" };
-    inline const std::string kLogDirA{ "C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\log" };
+    inline const std::wstring kLogDirW{ L"C:\\Development\\Projects\\IT\\Programming\\!git-web\\open-source\\admin-tasks\\log" };
+    inline const std::string kLogDirA{ "C:\\Development\\Projects\\IT\\Programming\\!git-web\\open-source\\admin-tasks\\log" };
 
 
     inline bool GetBoolFromStr(const std::wstring& str) {
@@ -51,6 +51,9 @@ namespace admin_tasks {
                        const boost::filesystem::copy_options& copy_options_p = boost::filesystem::copy_options::none);
     std::list<bool> CopyFilesToDir(const std::list<boost::filesystem::path>& source_files_paths, const boost::filesystem::path& target_dir,
                                    const boost::filesystem::copy_options& copy_options_p = boost::filesystem::copy_options::none);
+
+    void DeleteFilesFromDir(const std::list<std::wstring>& file_names, const boost::filesystem::path& target_dir);
+    void DeleteFilesFromDirs(const std::list<std::wstring>& file_names, const std::list<boost::filesystem::path>& target_dirs);
 
     const std::set<std::wstring> kArchiveExtensions{ L".7z", L".rar", L".zip", L".tar.bz2", L".tar.gz", L".zipx" };
 

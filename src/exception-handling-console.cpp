@@ -1,22 +1,9 @@
 #include "exception-handling-console.hpp"
 
-#include <iostream>
-#include <concepts>
 
 // Macroses: FILE_SYSTEM_EXCEPTION_HANDLING
 
 namespace errors {
-    inline const std::string kErrorWhatMesssage{ " error: " };
-
-
-    template<typename ErrorType> requires std::derived_from<ErrorType, std::exception>
-    inline void StandardErrorHandle(const ErrorType& error, const std::string& error_name,
-                                    const std::string& error_type) {
-        std::cout << kTryCatchMessage;
-        std::cout << kErrorTypeMessage << error_type << '\n';
-        std::cerr << error_name + kErrorWhatMesssage << error.what();
-    }
-
     /// logic_error - exception class to indicate violations of logical preconditions or class invariants
     int LogicErrorHandle(const std::logic_error& error) {
         StandardErrorHandle(error, kLogicErrorName, kLogicErrorType);

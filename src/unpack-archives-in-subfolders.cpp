@@ -96,6 +96,8 @@ namespace admin_tasks {
                 std::wcout << L"Files, that have been extracted:\n";
 
                 WriteUnpackLogs(target_directories, all_archive_file_paths);
+            } else {
+                std::cout << kUnpackArchivesModuleName + msg_module_disabled;
             }
             std::cout << "\n";
             return 0;

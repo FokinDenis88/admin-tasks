@@ -64,7 +64,7 @@ namespace admin_tasks {
 
                 //std::wstring wstr = file::GetFolderTag(boost::filesystem::path(L"C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\test\\!Tags-test\\New folder - Copy (2)___textures.com"), std::wstring(L"___"));
 
-                if (!prefix.empty() && !suffix.empty()) {
+                if (!prefix.empty() || !suffix.empty()) {
                     std::list<boost::filesystem::path> real_target_directories{};
                     if (subdirs_flag) {
                         for (const boost::filesystem::path& target_directory : target_directories) { // Calc all target directories

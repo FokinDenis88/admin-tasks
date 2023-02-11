@@ -26,10 +26,10 @@ namespace admin_tasks {
     const std::wstring kTagNameIniKey           { L"tag_name" };
     const std::wstring kNewFullTagIniKey        { L"new_full_tag" };
 
-    const std::wstring kAddTagsCommand      { L"AddTags" };
-    const std::wstring kDeleteTagsCommand   { L"DeleteTags" };
-    const std::wstring kReplaceTagsCommand  { L"ReplaceTags" };
-    const std::set<std::wstring> kSetOfCommands { kAddTagsCommand, kDeleteTagsCommand,  kReplaceTagsCommand };
+    const std::wstring kAddCommand      { L"AddTags" };
+    const std::wstring kDeleteCommand   { L"DeleteTags" };
+    const std::wstring kReplaceCommand  { L"ReplaceTags" };
+    const std::set<std::wstring> kSetOfCommands { kAddCommand, kDeleteCommand,  kReplaceCommand };
 
     int ManageTagsInSubfolders() {
         try {
@@ -51,7 +51,7 @@ namespace admin_tasks {
                 const std::wstring tag_name{ ReadWStringFromIni(kTagManagementSection, kTagNameIniKey, ini_path) };
                 const std::wstring new_full_tag{ ReadWStringFromIni(kTagManagementSection, kNewFullTagIniKey, ini_path) };
 
-                std::wstring wstr = file::GetFolderTag(boost::filesystem::path(L"C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\test\\!Tags-test\\New folder - Copy (2)___textures.com"), std::wstring(L"___"));
+                //std::wstring wstr = file::GetFolderTag(boost::filesystem::path(L"C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\test\\!Tags-test\\New folder - Copy (2)___textures.com"), std::wstring(L"___"));
 
                 if (!tag_separator.empty() || !tag_name.empty()) {
                     const std::wstring full_tag{ tag_separator + tag_name };
@@ -79,15 +79,15 @@ namespace admin_tasks {
                                 const boost::filesystem::path dir_path{ dir_entry.path() };
 
                                 if (kSetOfCommands.contains(command)) {
-                                    if (kAddTagsCommand == command) {
+                                    if (kAddCommand == command) {
                                         file::AddTagToFolder(dir_path, full_tag);
                                         std::wcout << full_tag << L" has been added to " << dir_path << L"\n";
                                     }
-                                    else if (kDeleteTagsCommand == command) {
+                                    else if (kDeleteCommand == command) {
                                         file::DeleteTagFromFolder(dir_path, full_tag);
                                         std::wcout << full_tag << L" has been deleted from " << dir_path << L"\n";
                                     }
-                                    else if (kReplaceTagsCommand == command) {
+                                    else if (kReplaceCommand == command) {
                                         file::ReplaceTagFromFolder(dir_path, full_tag, new_full_tag);
                                         std::wcout << full_tag << L" has been replaced from " << dir_path << L"\n";
                                     }

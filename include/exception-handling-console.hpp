@@ -37,7 +37,7 @@ namespace errors {
 
     inline const std::string kTryCatchMessage{ "\n\nTry {} Catch {} block.\n" };
     inline const std::string kErrorTypeMessage{ "C++ Error Type: " };
-    inline const std::string kErrorWhatMesssage{ " error: " };
+    inline const std::string kErrorWhatMesssage{ " error. What: " };
 
     inline const std::string kLogicErrorType            { "std::logic_error" };
     inline const std::string kRuntimeErrorType          { "std::runtime_error" };

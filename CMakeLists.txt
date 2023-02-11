@@ -14,6 +14,7 @@ set(SOURCES
     src/exception-handling-console.cpp
     src/logs-support.cpp
     src/tag-management.cpp
+    src/prefix-suffix.cpp
     src/delete-files-from-multiple-dirs.cpp
     src/copy-full-license-text-file.cpp
     )
@@ -40,9 +41,11 @@ set(HEADER_FILES_FILTER
     include/exception-handling-console.hpp
     include/logs-support.hpp
     include/tag-management.hpp
+    include/prefix-suffix.hpp
     include/delete-files-from-multiple-dirs.hpp
     include/copy-full-license-text-file.hpp
     )
+
 set(DOC_FILTER
     doc/to-do.txt
     doc/copy-past-helper.txt

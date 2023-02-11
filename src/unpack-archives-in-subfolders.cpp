@@ -93,7 +93,7 @@ namespace admin_tasks {
                     } // !Calc all target directories
                 }
                 std::cout << kUnpackArchivesModuleName + msg_process_end << "\n\n";
-                std::wcout << L"Files, that have been extracted:\n";
+                std::wcout << L"Start writing logs. Files, that have been extracted:\n";
 
                 WriteUnpackLogs(target_directories, all_archive_file_paths);
             } else {
@@ -102,8 +102,12 @@ namespace admin_tasks {
             std::cout << "\n";
             return 0;
         }
-        catch (const boost::filesystem::filesystem_error& error)  { return errors::FilesystemErrorHandle(error); }
-        catch (const std::runtime_error& error)                 { return errors::RuntimeErrorHandle(error); }
+        catch (const boost::filesystem::filesystem_error& error)  {
+            return errors::FilesystemErrorHandle(error);
+        }
+        catch (const std::runtime_error& error)                 {
+            return errors::RuntimeErrorHandle(error);
+        }
         catch (...)                                             { return errors::FatalErrorHandle(); }
     }
 } // !namespace admin_tasks

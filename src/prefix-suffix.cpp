@@ -32,11 +32,46 @@ namespace admin_tasks {
 
     const std::wstring kAddCommand      { L"Add" };
     const std::wstring kDeleteCommand   { L"Delete" };
-    const std::wstring kReplaceCommand  { L"Replace" };
-    const std::unordered_set<std::wstring> kSetOfCommands { kAddCommand, kDeleteCommand,  kReplaceCommand };
+    const std::wstring kRefreshCommand  { L"Refresh" };
+    const std::unordered_set<std::wstring> kSetOfCommands { kAddCommand, kDeleteCommand,  kRefreshCommand };
 
     const std::wstring kHasBeenAdded{ L" has been added to " };
     const std::wstring kHasBeenDeleted{ L" has been deleted to " };
+
+    bool IsIdle(const std::wstring& command, const std::wstring& prefix, const std::wstring& suffix,
+                const std::wstring& new_prefix, const std::wstring& new_suffix) {
+        if (command.empty()) { return true; }
+        if (command == kAddCommand || command == kDeleteCommand) {
+            if (prefix.empty() && suffix.empty()) { return true; }
+        } else { // command == kRefreshCommand
+            if (prefix.empty() && suffix.empty() && new_prefix.empty() && new_suffix.empty()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    std::list<boost::filesystem::path> FilterDirectories(const std::list<boost::filesystem::path>& target_directories,
+                                                        const bool subdirs_flag,
+                                                        const std::list<boost::filesystem::path>& subdirs_filter) {
+        std::list<boost::filesystem::path> filtered_directories{};
+        if (subdirs_flag) {
+            for (const boost::filesystem::path& target_directory : target_directories) { // Calc all target directories
+                for (auto const& dir_entry : boost::filesystem::directory_iterator{ target_directory }) {
+                    if (boost::filesystem::is_directory(dir_entry)) {
+                        if (subdirs_filter.empty() ||
+                            std::find(subdirs_filter.cbegin(), subdirs_filter.cend(),
+                                dir_entry.path().filename()) != subdirs_filter.cend()) // Directory equal to filter condition
+                            filtered_directories.emplace_back(dir_entry.path());
+                    }
+                }
+            }
+        } else {
+            filtered_directories = target_directories;
+        }
+        return filtered_directories;
+    }
 
     int PrefixSuffix() {
         try {
@@ -64,22 +99,8 @@ namespace admin_tasks {
 
                 //std::wstring wstr = file::GetFolderTag(boost::filesystem::path(L"C:\\Development\\Projects\\!Programming\\!git-web\\open-source\\admin-tasks\\test\\!Tags-test\\New folder - Copy (2)___textures.com"), std::wstring(L"___"));
 
-                if (!prefix.empty() || !suffix.empty()) {
-                    std::list<boost::filesystem::path> real_target_directories{};
-                    if (subdirs_flag) {
-                        for (const boost::filesystem::path& target_directory : target_directories) { // Calc all target directories
-                            for (auto const& dir_entry : boost::filesystem::directory_iterator{ target_directory }) {
-                                if (boost::filesystem::is_directory(dir_entry)) {
-                                    if ( subdirs_filter.empty() ||
-                                        std::find(subdirs_filter.cbegin(), subdirs_filter.cend(),
-                                                  dir_entry.path().filename()) != subdirs_filter.cend() ) // Directory equal to filter condition
-                                    real_target_directories.emplace_back(dir_entry.path());
-                                }
-                            }
-                        }
-                    } else {
-                        real_target_directories = target_directories;
-                    }
+                if (!IsIdle(command, prefix, suffix, new_prefix, new_suffix)) {
+                    std::list<boost::filesystem::path> real_target_directories{ FilterDirectories(target_directories, subdirs_flag, subdirs_filter) };
 
                     for (const boost::filesystem::path& target_directory : real_target_directories) { // Calc all target directories
                         for (auto const& dir_entry : boost::filesystem::directory_iterator{ target_directory }) {
@@ -97,8 +118,7 @@ namespace admin_tasks {
                                         if (!suffix.empty()) {
                                             std::wcout << suffix << kHasBeenAdded << dir_path << L"\n";
                                         }
-                                    }
-                                    else if (kDeleteCommand == command) {
+                                    } else if (kDeleteCommand == command) {
                                         file::DeletePrefixSuffixFromPath(dir_path, prefix, suffix);
                                         if (!prefix.empty()) {
                                             std::wcout << prefix << kHasBeenDeleted << dir_path << L"\n";
@@ -106,12 +126,11 @@ namespace admin_tasks {
                                         if (!suffix.empty()) {
                                             std::wcout << suffix << kHasBeenDeleted << dir_path << L"\n";
                                         }
-                                    } else if (kReplaceCommand == command) {
-                                        file::ReplacePrefixSuffixFromPath(dir_path, prefix, suffix, new_prefix, new_suffix);
-                                        std::wcout << prefix << L" And " << suffix << L" has been replaced from " << dir_path << L"\n";
+                                    } else if (kRefreshCommand == command) {
+                                        file::RefreshPrefixSuffixFromPath(dir_path, prefix, suffix, new_prefix, new_suffix);
+                                        std::wcout << prefix << L" And " << suffix << L" has been refreshed in " << dir_path << L"\n";
                                     }
-                                }
-                                else { std::cout << "Undeclared tag command in ini file.\n"; }
+                                } else { std::cout << "Undeclared tag command in ini file.\n"; }
                             }
                         }
                     } // !Calc all target directories

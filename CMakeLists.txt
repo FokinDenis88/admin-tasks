@@ -28,8 +28,8 @@ set(INCLUDES
 
 set(LIBRARIES
     "C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/filesystem/build/msvc-14.3/debug/link-static/threading-multi/libboost_filesystem-vc143-mt-gd-x64-1_80.lib"
-    #"C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/filesystem/build/msvc-14.3/release/link-static/threading-multi/libboost_filesystem-vc143-mt-x64-1_80.lib"
     "C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/regex/build/msvc-14.3/debug/link-static/threading-multi/libboost_regex-vc143-mt-gd-x64-1_80.lib"
+    #"C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/filesystem/build/msvc-14.3/release/link-static/threading-multi/libboost_filesystem-vc143-mt-x64-1_80.lib"
     #"C:/DevApps/!Libraries/!boost/boost-1-80/bin.v2/libs/regex/build/msvc-14.3/release/link-static/threading-multi/libboost_regex-vc143-mt-x64-1_80.lib"
     )
 

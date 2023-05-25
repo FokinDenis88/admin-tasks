@@ -78,7 +78,10 @@ namespace admin_tasks {
                                 //std::wcout << "Extracting file: " << dir_entry << '\n';
 
                                 /// https://info.nrao.edu/computing/guide/file-access-and-archiving/7zip/7z-7za-command-line-guide
-                                /// -aos: Skip existing files -o: Output directory
+                                /// -aou: auto rename extracting file
+                                /// -aos: Skip same files
+                                /// -o: Output directory
+                                /// If rename... files will be duplicated. If Skip same files from archive won't be extracted.
                                 std::wstring output_dir_switch{ L"-aos -o\"" + target_dir_path.wstring() + L'\"' };
                                 SevenZipCommandW(zip_app_path.wstring(), L"x", output_dir_switch, L'\"' + entry_path.wstring() + L'\"', L"");
 #ifdef DATA_LOSSY
@@ -93,6 +96,7 @@ namespace admin_tasks {
                     } // !Calc all target directories
                 }
                 std::cout << kUnpackArchivesModuleName + msg_process_end << "\n\n";
+                std::cout << "============================================================================\n\n";
                 std::wcout << L"Start writing logs. Files, that have been extracted:\n";
 
                 WriteUnpackLogs(target_directories, all_archive_file_paths);

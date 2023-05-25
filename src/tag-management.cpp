@@ -28,8 +28,8 @@ namespace admin_tasks {
 
     const std::wstring kAddCommand      { L"AddTags" };
     const std::wstring kDeleteCommand   { L"DeleteTags" };
-    const std::wstring kReplaceCommand  { L"ReplaceTags" };
-    const std::set<std::wstring> kSetOfCommands { kAddCommand, kDeleteCommand,  kReplaceCommand };
+    const std::wstring kRefreshCommand  { L"ReplaceTags" };
+    const std::set<std::wstring> kSetOfCommands { kAddCommand, kDeleteCommand,  kRefreshCommand };
 
     int ManageTagsInSubfolders() {
         try {
@@ -87,7 +87,7 @@ namespace admin_tasks {
                                         file::DeleteTagFromFolder(dir_path, full_tag);
                                         std::wcout << full_tag << L" has been deleted from " << dir_path << L"\n";
                                     }
-                                    else if (kReplaceCommand == command) {
+                                    else if (kRefreshCommand == command) {
                                         file::ReplaceTagFromFolder(dir_path, full_tag, new_full_tag);
                                         std::wcout << full_tag << L" has been replaced from " << dir_path << L"\n";
                                     }

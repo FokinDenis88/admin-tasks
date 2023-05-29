@@ -47,11 +47,13 @@ set(HEADER_FILES_FILTER
     )
 
 set(DOC_FILTER
-    doc/to-do.txt
-    doc/copy-past-helper.txt
+    doc/general/to-do.txt
+    doc/general/copy-past-helper.txt
     admin-tasks.ini
     #doc/!wiki.odt
     )
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 # Add source to this project's executable.
 add_executable(admin-tasks ${SOURCES}
@@ -65,6 +67,8 @@ target_link_libraries(admin-tasks ${LIBRARIES})
 # Filters for Grouping files in project
 source_group("Header Files" FILES ${HEADER_FILES_FILTER})
 source_group("Doc" FILES ${DOC_FILTER})
+
+
 
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

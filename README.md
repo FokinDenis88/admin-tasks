@@ -2,6 +2,7 @@
 Tasks for asset folders management. Unzip files recursively in folders. Add Tag to Folder.
 
 ## Installation
+git clone --recurse-submodules https://gitlab.com/furious-dragon/admin-tasks.git
 cmake -B build/visual-studio-cmake
 
 ## Support

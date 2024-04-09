@@ -21,8 +21,9 @@ namespace admin_tasks {
     inline const std::string msg_process_end        { " process has been ended\n" };
     inline const std::string msg_module_disabled    { " module is disabled" };
 
-    inline const std::wstring kSourceCodeDir{ LR"(C:\Development\Projects\IT\Programming\!git-web\public\admin-tasks)" };
-    inline const boost::filesystem::path ini_path{ kSourceCodeDir + L"\\" + kIniFileName };
+    inline const std::wstring kSourceCodeDir{ LR"(C:\Development\Projects\IT\Programming\git-web\public\admin-tasks)" };
+    //inline const boost::filesystem::path ini_path{ kSourceCodeDir + L"\\" + kIniFileName };
+    inline const boost::filesystem::path ini_path{ boost::filesystem::current_path().append(kIniFileName) };
 
     //inline const boost::filesystem::path ini_path{ boost::filesystem::current_path() /= kIniFileName };
     //boost::filesystem::path current_working_directory{ boost::filesystem::current_path() };

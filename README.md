@@ -1,9 +1,22 @@
 # Admin Tasks for Downloaded assets
 Tasks for asset folders management. Unzip files recursively in folders. Add Tag to Folder.
 
+## Repository Web Pages
+[github](https://gitlab.com/FokinDenis88/admin-tasks)  
+[gitlab (main)](https://gitlab.com/FokinDenis88/admin-tasks)  
+[gitverse (Russia)](https://gitverse.ru/FokinDenis88/admin-tasks)
+
 ## Installation
 1) git clone --branch develop --recurse-submodules https://gitlab.com/furious-dragon/admin-tasks.git
 2) (From the working dir = design-patterns)  cmake -B build/visual-studio
+
+## Contact
+**Skype:** live:dragon8806  
+**Telegram:** https://t.me/Furious_Dragon_88  
+**VK (Russia):** https://vk.com/furious__dragon  
+**Discord:** ***ID:*** fokin_denis_yurievich_  ***User Name:*** fokin_denis_yurievich_  
+**Email:** fokin-denis-88-code@ya.ru  
+**Gitter:** @fokindenis88_gitlab:gitter.im
 
 ## Support
 ### Bitcoin and other cryptocurrency:  

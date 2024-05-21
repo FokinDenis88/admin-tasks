@@ -2,8 +2,8 @@
 Tasks for asset folders management. Unzip files recursively in folders. Add Tag to Folder.
 
 ## Repository Web Pages
-[github](https://gitlab.com/FokinDenis88/admin-tasks)  
-[gitlab (main)](https://gitlab.com/FokinDenis88/admin-tasks)  
+[github](https://github.com/FokinDenis88/admin-tasks)  
+[gitlab (main)](https://gitlab.com/furious-dragon/admin-tasks)  
 [gitverse (Russia)](https://gitverse.ru/FokinDenis88/admin-tasks)
 
 ## Installation
